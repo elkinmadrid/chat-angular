@@ -1,0 +1,36 @@
+<div class="card mx-4 my-4">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item mr-2">
+        <input *ngIf="!conectado" [(ngModel)]="mensaje.userName" type="text" name="username" placeholder="User name"
+          class="form-control" />
+
+      </li>
+      <li class="nav-item mr-2">
+        <button [disabled]="!mensaje.userName" *ngIf="!conectado" class="btn btn-success" type="button"
+          (click)="conectarse()"> Conectar</button>
+      </li>
+      <li class="nav-item">
+        <button *ngIf="conectado" class="btn btn-warning" type="button" (click)="desconectarse()"> Desconetar</button>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="conectado" class="card-body" style="overflow-y:scroll ; height: 350px;">
+    <ul class="list-group">
+      <li class="list-group-item-list-group-item-ligth" *ngFor="let men of mensajes">
+        <span *ngIf="men.tipo=='NEW_USER'"> {{men.fecha | date:'shortTime' }} @ {{men.texto}} {{men.userName}}</span>
+        <span *ngIf="men.tipo=='MENSAJE'"> {{men.fecha | date:'shortTime' }} {{men.userName}} dice: <br/> {{men.texto}}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="conectado" class="card-footer">
+    <form class="form-inline">
+      <div class="form-group mx-3">
+        <input [(ngModel)]="mensaje.texto" type="text" name="txt" placeholder="Escribe un mensaje..."
+          class="form-control" />
+      </div>
+      <button [disabled]="!mensaje.texto" type="submit" class="btn btn-primary" value="Enviar" (click)="sendMessage()"> Enviar Mensaje</button>
+    </form>
+  </div>
+</div>
