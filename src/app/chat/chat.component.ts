@@ -29,8 +29,7 @@ export class ChatComponent implements OnInit {
       this.client.subscribe('/topic/mensaje', (e) => {
         let men = JSON.parse(e.body) as Mensaje;
         men.fecha = new Date(men.fecha);
-        this.mensajes.push(men);
-        console.log(men);
+        this.mensajes.push(men);        
         
       });
       this.mensaje.tipo = 'NEW_USER';
